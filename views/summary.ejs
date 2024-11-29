@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Group Summary</title>
+</head>
+<body>
+  <h1>Summary for Group: <%= groupId %></h1>
+
+  <h2>Members:</h2>
+  <ul>
+    <% group.members.forEach(member => { %>
+      <li><%= member %></li>
+    <% }) %>
+  </ul>
+
+  <h2>Expenses:</h2>
+  <ul>
+    <% group.expenses.forEach(expense => { %>
+      <li><%= expense.name %> - $<%= expense.amount %> (Paid by: <%= expense.paidBy %>)</li>
+    <% }) %>
+  </ul>
+
+  <h2>Balances:</h2>
+  <ul>
+    <% for (let member in balances) { %>
+      <li><%= member %>: <%= balances[member].toFixed(2) %> USD</li>
+    <% } %>
+  </ul>
+
+  <a href="/group/<%= groupId %>">Back to Group</a>
+</body>
+</html>

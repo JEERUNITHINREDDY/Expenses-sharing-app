@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles.css">
+  <title><%= group.name %> - Group</title>
+</head>
+<body>
+  <div class="container">
+    <h1><%= group.name %></h1>
+
+    <h2>Members</h2>
+    <ul>
+      <% group.members.forEach(member => { %>
+        <li><%= member %></li>
+      <% }) %>
+    </ul>
+    <form action="/group/<%= groupId %>/add-member" method="POST">
+      <input type="text" name="memberName" placeholder="Add Member" required>
+      <button type="submit">Add</button>
+    </form>
+
+    <h2>Expenses</h2>
+    <ul>
+      <% group.expenses.forEach(expense => { %>
+        <li>
+          <strong><%= expense.description %>:</strong>
+          $<%= expense.amount %> paid by <%= expense.paidBy %>,
+          split between <%= expense.splitBetween.join(', ') %>
+        </li>
+      <% }) %>
+    </ul>
+    <form action="/group/<%= groupId %>/add-expense" method="POST">
+      <input type="text" name="description" placeholder="Expense Description" required>
+      <input type="number" name="amount" placeholder="Amount" step="0.01" required>
+      <input type="text" name="paidBy" placeholder="Paid By" required>
+      <input type="text" name="splitBetween" placeholder="Split Between (comma-separated)" required>
+      <button type="submit">Add Expense</button>
+    </form>
+
+    <a href="/group/<%= groupId %>/summary">View Summary</a>
+  </div>
+</body>
+</html>
